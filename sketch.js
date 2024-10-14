@@ -3,8 +3,7 @@ let forestSpeed = 1; // normal speed of video
 
 let bear;
 let bearSpeed = 1;
-let isPlaying = false;
-let keyPressed;
+let showBear = false; 
 
 let dash;
 let dashSpeed = 1;
@@ -16,7 +15,6 @@ function setup() {
   forest.hide(); 
 
   bear = createVideo("libraries/bear.PNG");
-  bear.hide();
 
   //dash = createVideo("");
   //dash.loop();
@@ -42,14 +40,14 @@ function draw() {
     forestSpeed = 1; 
   }
 
-  image (bear, 0, 0, width, height);
-
-  if (keyPressed("1")){
-    if (isPlaying){
-      bear.pause();
-    } else {
-      bear.play();
-    }
-    isPlaying = !isPlaying;
+  if (showBear){
+    image(bear, 0, 0, width, height);
   }
+}
+
+function keyPressed() {
+  if (key == "1") {
+    showBear = ! showBear;
+  }
+
 }
