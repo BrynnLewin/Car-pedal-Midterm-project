@@ -3,6 +3,7 @@ let winterSpeed = 10;
 let dashSpeed = 10;
 let bearSpeed = 10;
 let icebearSpeed = 10;
+let crashSpeed = 10;
 
 
 let currentForestFrame = 1;
@@ -10,11 +11,13 @@ let currentWinterFrame = 1;
 let currentDashFrame = 1;
 let currentBearFrame = 1;
 let currentIcebearFrame = 1;
+let currentCrashFrame = 1;
 
 
 let showWinter = false;
 let showBear = false;
 let showIcebear = false;
+let showCrash = false;
 
 
 let forestFrames = [];
@@ -22,6 +25,7 @@ let winterFrames = [];
 let dashFrames = [];
 let bearFrames = [];
 let icebearFrames = [];
+let crashFrames = [];
 
 
 function preload() {
@@ -39,6 +43,11 @@ function preload() {
   for (let i = 1; i <= 14; i++) {
     bearFrames.push(loadImage("assets/bear" + i + ".png"));
     icebearFrames.push(loadImage("assets/icebear" + i + ".png"));
+  }
+
+
+  for (let i = 1; i <= 2; i++) {
+    crashFrames.push(loadImage("assets/crash" + i + ".png"));
   }
 }
 
@@ -78,6 +87,12 @@ function draw() {
   if (showIcebear) {
     drawAnimation(icebearFrames, icebearSpeed, 'icebear');
   }
+
+
+  // Draw crash (if visible), this will be on top of everything
+  if (showCrash) {
+    drawAnimation(crashFrames, crashSpeed, 'crash');
+  }
 }
 
 
@@ -97,6 +112,11 @@ function keyPressed() {
   }
 
 
+  if (keyCode === RIGHT_ARROW) {
+    showCrash = !showCrash;
+  }
+
+
   // Adjust speeds based on key presses
   if (
     keyIsDown(82) || keyIsDown(68) || keyIsDown(88) ||
@@ -108,6 +128,7 @@ function keyPressed() {
     dashSpeed = 10;
     bearSpeed = 10;
     icebearSpeed = 10;
+    crashSpeed = 10;
   } else if (
     keyIsDown(85) || keyIsDown(72) || keyIsDown(66) ||
     keyIsDown(89) || keyIsDown(71) || keyIsDown(86) ||
@@ -118,6 +139,7 @@ function keyPressed() {
     dashSpeed = 5;
     bearSpeed = 5;
     icebearSpeed = 5;
+    crashSpeed = 5;
   } else if (
     keyIsDown(80) || keyIsDown(76) || keyIsDown(79) ||
     keyIsDown(73) || keyIsDown(75) || keyIsDown(77) ||
@@ -128,6 +150,7 @@ function keyPressed() {
     dashSpeed = 1;
     bearSpeed = 1;
     icebearSpeed = 1;
+    crashSpeed = 1;
   }
 }
 
@@ -149,6 +172,9 @@ function drawAnimation(frames, speed, type) {
       break;
     case 'icebear':
       currentFrame = currentIcebearFrame;
+      break;
+    case 'crash':
+      currentFrame = currentCrashFrame;
       break;
   }
 
@@ -176,6 +202,9 @@ function drawAnimation(frames, speed, type) {
       case 'icebear':
         currentIcebearFrame = currentFrame;
         break;
+      case 'crash':
+        currentCrashFrame = currentFrame;
+        break;
     }
   }
 
@@ -186,3 +215,8 @@ function drawAnimation(frames, speed, type) {
     console.error("Frame not found: " + currentFrame + " for type: " + type);
   }
 }
+
+
+
+
+
