@@ -2,38 +2,43 @@ let forestSpeed = 10;
 let winterSpeed = 10;
 let dashSpeed = 10;
 let bearSpeed = 10;
+let icebearSpeed = 10;
 
 
 let currentForestFrame = 1;
 let currentWinterFrame = 1;
 let currentDashFrame = 1;
 let currentBearFrame = 1;
+let currentIcebearFrame = 1;
 
 
 let showWinter = false;
 let showBear = false;
+let showIcebear = false;
 
 
 let forestFrames = [];
 let winterFrames = [];
 let dashFrames = [];
 let bearFrames = [];
+let icebearFrames = [];
 
 
 function preload() {
   for (let i = 1; i <= 20; i++) {
-    forestFrames[i] = loadImage("assets/frame" + i + ".png");
-    winterFrames[i] = loadImage("assets/winter" + i + ".png");
+    forestFrames.push(loadImage("assets/frame" + i + ".png"));
+    winterFrames.push(loadImage("assets/winter" + i + ".png"));
   }
 
 
   for (let i = 1; i <= 9; i++) {
-    dashFrames[i] = loadImage("assets/dash" + i + ".png");
+    dashFrames.push(loadImage("assets/dash" + i + ".png"));
   }
 
 
   for (let i = 1; i <= 14; i++) {
-    bearFrames[i] = loadImage("assets/bear" + i + ".png");
+    bearFrames.push(loadImage("assets/bear" + i + ".png"));
+    icebearFrames.push(loadImage("assets/icebear" + i + ".png"));
   }
 }
 
@@ -67,6 +72,12 @@ function draw() {
   if (showBear) {
     drawAnimation(bearFrames, bearSpeed, 'bear');
   }
+
+
+  // Draw icebear (if visible)
+  if (showIcebear) {
+    drawAnimation(icebearFrames, icebearSpeed, 'icebear');
+  }
 }
 
 
@@ -81,6 +92,11 @@ function keyPressed() {
   }
 
 
+  if (keyCode === LEFT_ARROW) {
+    showIcebear = !showIcebear;
+  }
+
+
   // Adjust speeds based on key presses
   if (
     keyIsDown(82) || keyIsDown(68) || keyIsDown(88) ||
@@ -91,6 +107,7 @@ function keyPressed() {
     winterSpeed = 10;
     dashSpeed = 10;
     bearSpeed = 10;
+    icebearSpeed = 10;
   } else if (
     keyIsDown(85) || keyIsDown(72) || keyIsDown(66) ||
     keyIsDown(89) || keyIsDown(71) || keyIsDown(86) ||
@@ -100,6 +117,7 @@ function keyPressed() {
     winterSpeed = 5;
     dashSpeed = 5;
     bearSpeed = 5;
+    icebearSpeed = 5;
   } else if (
     keyIsDown(80) || keyIsDown(76) || keyIsDown(79) ||
     keyIsDown(73) || keyIsDown(75) || keyIsDown(77) ||
@@ -109,6 +127,7 @@ function keyPressed() {
     winterSpeed = 1;
     dashSpeed = 1;
     bearSpeed = 1;
+    icebearSpeed = 1;
   }
 }
 
@@ -128,13 +147,16 @@ function drawAnimation(frames, speed, type) {
     case 'bear':
       currentFrame = currentBearFrame;
       break;
+    case 'icebear':
+      currentFrame = currentIcebearFrame;
+      break;
   }
 
 
-  if (frameCount % speed == 0) {
+  if (frameCount % speed === 0) {
     currentFrame++;
-    if (currentFrame > frames.length - 1) {
-      currentFrame = 1;
+    if (currentFrame >= frames.length) {
+      currentFrame = 0;
     }
 
 
@@ -151,6 +173,9 @@ function drawAnimation(frames, speed, type) {
       case 'bear':
         currentBearFrame = currentFrame;
         break;
+      case 'icebear':
+        currentIcebearFrame = currentFrame;
+        break;
     }
   }
 
@@ -158,8 +183,6 @@ function drawAnimation(frames, speed, type) {
   if (frames[currentFrame]) {
     image(frames[currentFrame], 0, 0, width, height);
   } else {
-    console.error("Frame not found: " + currentFrame);
+    console.error("Frame not found: " + currentFrame + " for type: " + type);
   }
 }
-
-
