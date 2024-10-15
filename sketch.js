@@ -4,12 +4,13 @@ let forestFrames = [];
 
 let winterSpeed = 10;
 let winterFrames = [];
-let showwinter = false;
+let showWinter = false;
 
 let bear;
 let bearSpeed = 1;
 let showBear = false; 
 let currentForestFrame = 1;
+let currentWinterFrame = 1;
 
 let dash;
 let dashSpeed = 1;
