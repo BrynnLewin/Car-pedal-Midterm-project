@@ -123,23 +123,23 @@ function keyPressed() {
     keyIsDown(69) || keyIsDown(83) || keyIsDown(90) ||
     keyIsDown(87) || keyIsDown(65) || keyIsDown(81)
   ) {
+    forestSpeed = 0;
+    winterSpeed = 0;
+    dashSpeed = 0;
+    bearSpeed = 0;
+    icebearSpeed = 0;
+    crashSpeed = 0;
+  } else if (
+    keyIsDown(85) || keyIsDown(72) || keyIsDown(66) ||
+    keyIsDown(89) || keyIsDown(71) || keyIsDown(86) ||
+    keyIsDown(84) || keyIsDown(70) || keyIsDown(67)
+  ) {
     forestSpeed = 10;
     winterSpeed = 10;
     dashSpeed = 10;
     bearSpeed = 10;
     icebearSpeed = 10;
     crashSpeed = 10;
-  } else if (
-    keyIsDown(85) || keyIsDown(72) || keyIsDown(66) ||
-    keyIsDown(89) || keyIsDown(71) || keyIsDown(86) ||
-    keyIsDown(84) || keyIsDown(70) || keyIsDown(67)
-  ) {
-    forestSpeed = 5;
-    winterSpeed = 5;
-    dashSpeed = 5;
-    bearSpeed = 5;
-    icebearSpeed = 5;
-    crashSpeed = 5;
   } else if (
     keyIsDown(80) || keyIsDown(76) || keyIsDown(79) ||
     keyIsDown(73) || keyIsDown(75) || keyIsDown(77) ||
