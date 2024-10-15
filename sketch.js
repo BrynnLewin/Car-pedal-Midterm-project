@@ -2,6 +2,10 @@ let forestSpeed = 10; // normal speed of video
 
 let forestFrames = [];
 
+let winterSpeed = 10;
+let winterFrames = [];
+let showwinter = false;
+
 let bear;
 let bearSpeed = 1;
 let showBear = false; 
@@ -13,6 +17,10 @@ let dashSpeed = 1;
 function preload() {
   for (i = 1; i <= 20; i++) {
     forestFrames[i] = loadImage("assets/frame" + i + ".png")
+  }
+  
+  for (i = 1; i <= 20; i++){
+    winterFrames[i] = loadImage("assets/winter" + i + ".png")
   }
 }
 
@@ -50,9 +58,37 @@ function draw() {
   // if (showBear){
   //   image(bear, 0, 0, width, height);
   // }
+
+  //winter 
+  if (frameCount % winterSpeed == 0) {
+    currentWinterFrame = currentWinterFrame + 1;
+    if (currentForestFrame == 21) currentForestFrame = 1;
+  }
+  console.log(currentWinterFrame);
+  image(winterFrames[currentWinterFrame], 0, 0, width, height);
+
+  // fixes framerate based on the videoSpeed
+  //forest.speed(forestSpeed);
+
+  // // Checks for fastest speed first
+  if (keyIsDown(82) || keyIsDown(68) || keyIsDown(88) || keyIsDown(69) || keyIsDown(83) || keyIsDown(90) || keyIsDown(87) || keyIsDown(65) || keyIsDown(81)) {
+     winterSpeed = 10; 
+   }
+  // // Checks for medium speed second
+   else if (keyIsDown(85) || keyIsDown(72) || keyIsDown(66) || keyIsDown(89) || keyIsDown(71) || keyIsDown(86) || keyIsDown(84) || keyIsDown(70) || keyIsDown(67)) {
+     winterSpeed = 5; 
+   }
+  // // Checks for base speed
+   else if (keyIsDown(80) || keyIsDown(76) || keyIsDown(79) || keyIsDown(73) || keyIsDown(75) || keyIsDown(77) || keyIsDown(74) || keyIsDown(78)) {
+     winterSpeed = 1; 
+   }
 }
 
-// function keyPressed() {
+ function keyPressed() {
+  if (key == "2"){
+    showWinter = !showWinter;
+  }
+}
 //   if (key == "1") {
 //     showBear = ! showBear;
 //   }
